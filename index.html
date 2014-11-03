@@ -1,0 +1,58 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Notification Demo: Simulated Temperature Controller</title>
+	<meta name="description" content="D3">
+	<meta name="author" content="Tomomi Imura  @girlie_mac">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+	<header>
+		<h1>Push Notification Demo</h1>
+		<h2>Simulated Room Temperature Controller</h2>
+	</header>
+
+	<section class="demo">
+		<div class="container"></div>
+	</section>
+
+	<section class="instruction">
+		<section>
+			<div class="fa fa-android"></div>
+			<h3>Android Instruction:</h3>
+			<ol>
+				<li>Install the apk on your Android device</li>
+				<li>Once your device is registered to this demo, you should get your 8-digit unique ID</li>
+			</ol>
+		</section>
+
+		<section>
+			<div class="fa fa-desktop"></div>
+			<h3>Desktop Instruction:</h3>
+			<ol>
+				<li>Enter your 8-digit ID below</li>
+				<li>Hover cursor over the temperature controller UI, and use mousewheel or trackpad to change the value</li>
+				<li>When you set the room temperature above <strong>80F</strong>, it sends you a push notification to your Android device
+			</ol>
+		</section>
+
+		<section>
+			<input id="channel" type="text" placeholder="Enter your Device ID"> <span class="fa fa-check-circle" style="display:none"></span>
+		</section>
+	</section>
+
+
+	<footer>
+		<p>PubNub &bull; Tomomi Imura (<a href="https://twitter.com/girlie_mac" target="_blank">@girlie_mac</a>)</p>
+	</footer>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+	<script src="js/pubnub.js"></script>
+	<script src="js/app.min.js"></script>
+	
+</body>
+</html>
