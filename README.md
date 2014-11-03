@@ -22,4 +22,4 @@ You need to pair an Android device with this [desktop app][desktop] to be able t
 [pg]: http://phonegap.com
 [pubnub]: http://www.pubnub.com/docs/javascript/javascript-sdk.html
 [desktop]: https://pubnub.github.io/iot-push-demo
-[apk]: https://github.com/pubnub/iot-push-demo/releases/download/0.1/PushDemo-release-unsigned.apk
+[apk]: https://github.com/pubnub/iot-push-demo/releases/tag/0.1
