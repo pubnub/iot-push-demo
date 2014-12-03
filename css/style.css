@@ -36,10 +36,15 @@ footer {
     position: fixed;
     bottom: 1em;
     right: 1em;
+    text-align: right;
 }
 .instruction {
     width: 40%;
     float: left;
+}
+.instruction .divider {
+    border-top: 1px solid #777;
+    padding-top: 2em;
 }
 .instruction > section {
     position: relative;
@@ -49,13 +54,14 @@ footer {
 .instruction > section .fa:not(.fa-check-circle) {
     font-size: 64px;
     position: absolute;
-    top: 30px;
 }
 .instruction > section .fa-android {
     left: 9px;
+    top: 40px;
 }
 .instruction > section .fa-desktop {
     left: 0px;
+    top: 40px;
 }
 .instruction ol {
     margin-left: 0;
@@ -77,6 +83,10 @@ input[type=text], button {
     margin-bottom: 1em;
     display: inline-block;
     min-width: 240px;
+}
+button {
+    min-width: 120px;
+    color: #fff;
 }
 
 /* SVG */
@@ -125,6 +135,9 @@ text.degree {
 }
 .fa-android:before {
   content: "\f17b";
+}
+.fa-apple:before {
+  content: "\f179";
 }
 .fa-desktop:before {
   content: "\f108";

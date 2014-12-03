@@ -14,7 +14,7 @@
     var width = 300;
     var height = 300;
     var tau = 2 * Math.PI;    
-    var delta = .40;
+    var delta = 0.40;
     var minTemp = 40;
     var maxTemp = 95;
     var coldColor = '#F0CA78';
@@ -64,6 +64,7 @@
         publish_key:   'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
     });
 
+    var os = 'android';
     var regid = '';
     var channel = '';
     var temperature = 0;
@@ -72,18 +73,21 @@
     var input = document.getElementById('channel');
     var knob = document.querySelector('.container');
     var check = document.querySelector('.fa-check-circle');
+    var revoke = document.querySelector('.revoke');
 
     // Events
     knob.addEventListener('mousewheel', changeTemperature, false);
     knob.addEventListener('DOMMouseScroll', changeTemperature, false); // Moz
     input.addEventListener('keyup', pairDevice, false);
+    revoke.addEventListener('click', revokeDecice, false);
 
     // Check if a device is paired
     if(localStorage.getItem('notify-demo-channel') && localStorage.getItem('notify-demo-regid')){
         channel = localStorage.getItem('notify-demo-channel');
         regid = localStorage.getItem('notify-demo-regid');
         disableInputBox();
-        check.style.display = "inline-block";
+
+        if(channel.length < 8) os = 'ios';
     }
 
     displayTemperature(delta);
@@ -91,6 +95,15 @@
     function disableInputBox() {
         input.setAttribute('disabled', 'disabled');
         input.setAttribute('placeholder', 'Your ID: ' + channel);
+        check.style.display = 'inline-block';
+        revoke.style.display = 'block';
+    }
+
+    function enableInputBox() {
+        input.removeAttribute('disabled');
+        input.setAttribute('placeholder', 'Enter your Device ID');
+        check.style.display = 'none';
+        revoke.style.display = 'none';
     }
 
     function changeTemperature(e) {
@@ -149,55 +162,81 @@
 
     function pairDevice(e) {
         if((e.keyCode || e.charCode) === 13) {
-            channel += input.value;
+            channel = input.value;
             input.value = '';
             
             pubnub.history({
                 channel  : channel,
-                count    : 1,
+                count    : 2,
                 callback : function(m) {
                      console.log(m);
-                    if(m[0][0] && m[0][0].regid) {
-                        regid += m[0][0].regid;
+                    if((m[0][0] && m[0][0].regid) || (m[0][1] && m[0][1].regid)) {
+                        regid = m[0][0].regid || m[0][1].regid;
                         console.log(regid);
                         // save in browser
                         localStorage.setItem('notify-demo-channel', channel);
                         localStorage.setItem('notify-demo-regid', regid);
                         disableInputBox();
-                        check.style.display = "inline-block";
+
+                        if(channel.length < 8) os = 'ios';
+
                     } else {
-                        alert('The ID you entered does not match with any devices');
-                        check.style.display = "none";
+                        alert('The ID you entered, '+ channel +' does not match with any devices');
+                        enableInputBox();
                     }
+
                 }
             });
         }
+    }
+
+    function revokeDecice(e) {
+        localStorage.setItem('notify-demo-channel', '');
+        localStorage.setItem('notify-demo-regid', '');
+        enableInputBox();
+
+        var gwtype = (os === 'ios') ? 'apns' : 'gcm';
+        pubnub.mobile_gw_provision({
+            device_id: regid,
+            channel: channel, 
+            op: 'remove', 
+            gw_type: gwtype,
+            callback: function(m) {console.log(m);}            
+        });
+        regid = '';
     }
     
     function sendPush() {
         console.log('sending push notification...');
 
-        pubnub.gcm_add_channel ({
-            gcm_regid: regid,
-            channel  : channel,
-            callback : function(){
+        var gwtype = (os === 'ios') ? 'apns' : 'gcm';
+
+        pubnub.mobile_gw_provision({
+            device_id: regid,
+            channel: channel, 
+            op: 'add', 
+            gw_type: gwtype,
+            error: function(msg){console.log(msg);},
+            callback: function() {
                 var message = PNmessage();
 
                 message.pubnub = pubnub;
                 message.callback = function (msg){ console.log(msg); };
                 message.error = function (msg){ console.log(msg); };
                 message.channel = channel;
+                message.apns = {
+                    alert: 'The room temperature is set too high'
+                };
                 message.gcm = {
                     title: 'PubNub Push Demo',
                     message: 'The room temperature is set too high'
                 };
 
                 message.publish();
-            },
-            error : function(msg){console.log(msg);}
+            }            
         });
 
-    };
+    }
 
 })();
 
