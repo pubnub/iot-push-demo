@@ -1,4 +1,4 @@
-# Simulated IoT panel desktop UI to send ush notifications to Android devices (via GCM) and iOS devices (via APNS)
+# Sending push notifications from Web app to Android devices (via GCM) and iOS devices (via APNS)
 
 A showcase demo and a quick tutorial of [PhoneGap][pg] and [PubNub][pubnub] data stream network JavaScript API, using a simulated Smart room heater (à la Nest) web user-interface to give you some use case ideas.
 
@@ -27,7 +27,7 @@ First you access to the Android app to obtain your Registration ID, then you pai
 ## Source Code
 
 This repo is for the web app only, however, I included the code to be used for Cordova/PhoneGap app under `cordova` folder.
-The `index.js` file should be in your_cordova_app_root/www/js to build as an Android native app.
+The `index.js` file should be in `your_cordova_app_root/www/js` to build as an Android native app.
 
 For more information on how to get started with Cordova, see my previous blog posts:
 
