@@ -29,7 +29,14 @@ First you access to the Android app to obtain your Registration ID, then you pai
 This repo is for the web app only, however, I included the code to be used for Cordova/PhoneGap app under `cordova` folder.
 The `index.js` file should be in `your_cordova_app_root/www/js` to build as an Android native app.
 
-For more information on how to get started with Cordova, see my previous blog posts:
+## Tutorials
+
+I wrote a series of step-by-step instructions on how to send push notifications using Cordova plugin and PubNub APIs:
+
+ - [Sending Android Push Notifications via GCM in JavaScript][cordova-gcm]
+ - [Sending iOS Push Notifications via APNS in JavaScript][cordova-apns]
+
+Also, I have PhoneGap/Cordova 101 tuts:
 
  - [Converting Your JavaScript App to an Android App w/ PhoneGap][cordova-blog-1]
  - [Converting Your JavaScript App to an iOS App w/ PhoneGap][cordova-blog-2]
@@ -39,6 +46,7 @@ For more information on how to get started with Cordova, see my previous blog po
 [pubnub]: http://www.pubnub.com/docs/javascript/javascript-sdk.html
 [desktop]: https://pubnub.github.io/iot-push-demo
 [apk]: https://github.com/pubnub/iot-push-demo/releases/tag/0.1
-
+[cordova-apns]: http://www.pubnub.com/blog/sending-ios-push-notifications-via-apns-javascript-using-apns-phonegap/
+[cordova-gcm]: http://www.pubnub.com/blog/sending-android-push-notifications-via-gcm-javascript-using-phonegap/
 [cordova-blog-1]: http://www.pubnub.com/blog/how-to-convert-your-javascript-app-into-an-android-app-with-phonegap/
 [cordova-blog-2]: http://www.pubnub.com/blog/converting-your-javascript-app-to-an-ios-app-w-phonegap/
